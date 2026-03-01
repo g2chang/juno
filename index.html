@@ -40,19 +40,8 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    transition: width 0.3s ease, height 0.3s ease;
     mix-blend-mode: multiply;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid var(--rose);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-    opacity: 0.6;
   }
 
   /* Nav */
@@ -724,7 +713,6 @@
 
 <!-- Custom Cursor -->
 <div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- Floating petals -->
 <script>
@@ -1006,32 +994,19 @@
 <script>
   // Custom cursor
   const cursor = document.getElementById('cursor');
-  const cursorRing = document.getElementById('cursorRing');
-  let mx = -100, my = -100, rx = -100, ry = -100;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    cursorRing.style.left = rx + 'px';
-    cursorRing.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
 
   document.querySelectorAll('a, button, .service-card, .gallery-item').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px';
-      cursor.style.height = '20px';
-      cursorRing.style.width = '56px';
-      cursorRing.style.height = '56px';
+      cursor.style.width = '16px';
+      cursor.style.height = '16px';
     });
     el.addEventListener('mouseleave', () => {
       cursor.style.width = '10px';
       cursor.style.height = '10px';
-      cursorRing.style.width = '36px';
-      cursorRing.style.height = '36px';
     });
   });
 
